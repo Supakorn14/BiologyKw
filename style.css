@@ -1,43 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculator</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <div class="header">
-      <img src="assets/logo-placeholder.png" alt="Logo" class="logo">
-      <h1 class="title">CALCULATOR</h1>
-    </div>
-    
-    <div class="input-section">
-      <div class="input-group">
-        <div class="label">Parent 1</div>
-        <div class="allele-group">
-          <input type="text" id="allele1" class="allele" placeholder="Allele 1">
-          <input type="text" id="allele2" class="allele" placeholder="Allele 2">
-        </div>
-      </div>
-      <div class="input-group">
-        <div class="label">Parent 2</div>
-        <div class="allele-group">
-          <input type="text" id="allele3" class="allele" placeholder="Allele 1">
-          <input type="text" id="allele4" class="allele" placeholder="Allele 2">
-        </div>
-      </div>
-    </div>
-    
-    <div class="result-section">
-      <div class="label">Result</div>
-      <div id="result" class="result-box">--</div>
-    </div>
-    
-    <button id="calculate-btn" class="calculate-btn">Calculate</button>
-  </div>
+body {
+  font-family: "Rockwell Extra Bold", sans-serif;
+  background-color: #EDE7F6;
+  margin: 0;
+  padding: 0;
+}
 
-  <script src="script.js"></script>
-</body>
-</html>
+.container {
+  width: 100%;
+  max-width: 390px;
+  margin: auto;
+  text-align: center;
+}
+
+.header {
+  margin-top: 20px;
+}
+
+.logo {
+  width: 227px;
+  height: 232px;
+  display: block;
+  margin: auto;
+}
+
+.title {
+  font-size: 36px;
+  color: black;
+  font-weight: 800;
+}
+
+.input-section, .result-section {
+  margin-top: 20px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.label {
+  font-size: 24px;
+  color: #FFD058;
+  background-color: #BCACDD;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.allele-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.allele {
+  width: 70px;
+  height: 43px;
+  text-align: center;
+  border: 1px solid #D9D9D9;
+  border-radius: 5px;
+}
+
+.result-box {
+  width: 200px;
+  margin: 10px auto;
+  padding: 10px;
+  border: 1px solid #F698DB;
+  background-color: #F698DB;
+  color: #FFD058;
+  font-size: 24px;
+  border-radius: 5px;
+}
+
+.calculate-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #FFD058;
+  color: #333;
+  border: none;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+}
