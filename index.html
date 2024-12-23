@@ -1,1 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="assets/logo-placeholder.png" alt="Logo" class="logo">
+      <h1 class="title">CALCULATOR</h1>
+    </div>
+    
+    <div class="input-section">
+      <div class="input-group">
+        <div class="label">Parent 1</div>
+        <div class="allele-group">
+          <input type="text" id="allele1" class="allele" placeholder="Allele 1">
+          <input type="text" id="allele2" class="allele" placeholder="Allele 2">
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="label">Parent 2</div>
+        <div class="allele-group">
+          <input type="text" id="allele3" class="allele" placeholder="Allele 1">
+          <input type="text" id="allele4" class="allele" placeholder="Allele 2">
+        </div>
+      </div>
+    </div>
+    
+    <div class="result-section">
+      <div class="label">Result</div>
+      <div id="result" class="result-box">--</div>
+    </div>
+    
+    <button id="calculate-btn" class="calculate-btn">Calculate</button>
+  </div>
 
+  <script src="script.js"></script>
+</body>
+</html>
