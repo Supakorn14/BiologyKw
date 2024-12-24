@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ผลลัพธ์</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <button onclick="window.location.href='index.html'">กลับไปหน้าหลัก</button>
+    </div>
+    <main>
+        <h1>ผลลัพธ์ของคุณ</h1>
+        <div class="results">
+            <p id="result">กำลังโหลด...</p>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Genetics Calculator. All rights reserved.</p>
+    </footer>
+    <script>
+        // ดึงค่าจาก URL
+        const params = new URLSearchParams(window.location.search);
+        const allele1 = params.get('allele1');
+        const allele2 = params.get('allele2');
+        const allele3 = params.get('allele3');
+        const allele4 = params.get('allele4');
+
+        // คำนวณผลลัพธ์
+        const result = `${allele1}-${allele2}, ${allele3}-${allele4}`;
+        document.getElementById('result').innerText = `ผลลัพธ์: ${result}`;
+    </script>
+</body>
+</html>
