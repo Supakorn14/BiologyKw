@@ -12,55 +12,44 @@
         <button onclick="window.location.href='page2.html'">ข้อมูลเกี่ยวกับสูตร</button>
         <button onclick="window.location.href='page3.html'">เกี่ยวกับเรา</button>
     </div>
-
     <main>
         <h1>Genetics Calculator</h1>
-        <p>โปรดเลือกอัลลีลของพ่อและแม่ เพื่อคำนวณผลลัพธ์ทางพันธุกรรม</p>
+        <p>เลือกอัลลีลของพ่อและแม่ แล้วกด <strong>คำนวณ</strong> เพื่อดูผลลัพธ์</p>
         
-        <!-- ฟอร์มสำหรับใส่ข้อมูล -->
-        <div class="form-container">
+        <form id="calculator-form" action="result.html" method="GET">
             <div class="form-group">
-                <label for="parent1">Parent 1 Allele 1:</label>
-                <select id="parent1">
+                <label for="allele1">Parent 1 Allele 1:</label>
+                <select id="allele1" name="allele1">
                     <option value="A">A</option>
                     <option value="a">a</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="parent2">Parent 1 Allele 2:</label>
-                <select id="parent2">
+                <label for="allele2">Parent 1 Allele 2:</label>
+                <select id="allele2" name="allele2">
                     <option value="A">A</option>
                     <option value="a">a</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="parent3">Parent 2 Allele 1:</label>
-                <select id="parent3">
+                <label for="allele3">Parent 2 Allele 1:</label>
+                <select id="allele3" name="allele3">
                     <option value="A">A</option>
                     <option value="a">a</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="parent4">Parent 2 Allele 2:</label>
-                <select id="parent4">
+                <label for="allele4">Parent 2 Allele 2:</label>
+                <select id="allele4" name="allele4">
                     <option value="A">A</option>
                     <option value="a">a</option>
                 </select>
             </div>
-        </div>
-
-        <button class="calculate-btn" onclick="calculateGenetics()">Calculate</button>
-
-        <div class="results">
-            <h2>Results:</h2>
-            <p id="results">ผลลัพธ์จะแสดงที่นี่</p>
-        </div>
+            <button type="submit" class="calculate-btn">คำนวณ</button>
+        </form>
     </main>
-
     <footer>
         <p>&copy; 2024 Genetics Calculator. All rights reserved.</p>
     </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>
