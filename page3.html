@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>สูตรพันธุศาสตร์</title>
+    <title>เกี่ยวกับเรา</title>
     <link rel="stylesheet" href="style.css">
     <style>
         /* Reset Styles */
@@ -12,12 +12,12 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         /* Body Styles */
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.8;
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            background: linear-gradient(135deg, #a18cd1, #fbc2eb);
             color: #333;
             padding: 20px;
         }
@@ -45,7 +45,7 @@
         }
 
         .header button:hover {
-            background: #ff9a9e;
+            background: #a18cd1;
             color: #333;
         }
 
@@ -59,73 +59,35 @@
             margin: 0 auto;
         }
 
-        h1, h2, h3 {
-            color: #ff9a9e;
+        h1 {
+            color: #a18cd1;
             text-align: center;
             margin-bottom: 20px;
         }
 
-        h2 {
-            font-size: 1.6rem;
-            margin-top: 30px;
-        }
-
-        h3 {
-            font-size: 1.4rem;
-            margin-top: 20px;
-        }
-
         p {
             margin-bottom: 15px;
-            text-align: justify;
+            text-align: center;
             font-size: 1rem;
             color: #555;
         }
 
-        ul {
-            margin-top: 10px;
-            padding-left: 30px;
-            list-style: none;
+        .team-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
         }
 
-        ul li {
-            margin-bottom: 10px;
-            position: relative;
-            padding-left: 25px;
-            font-size: 1rem;
-            color: #444;
-        }
-
-        ul li::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: #ff6f91;
-            font-size: 1.5rem;
-            line-height: 1.5;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            font-size: 0.9rem;
-        }
-
-        table th, table td {
-            border: 1px solid #ddd;
-            padding: 10px;
+        .team-item {
+            background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+            padding: 20px;
+            border-radius: 15px;
             text-align: center;
-        }
-
-        table th {
-            background: #ff9a9e;
-            color: white;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            font-size: 1.1rem;
+            color: #333;
             font-weight: bold;
-        }
-
-        table td {
-            background: #fdfdfd;
         }
 
         footer {
@@ -135,31 +97,9 @@
             color: #777;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            main {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 1.8rem;
-            }
-
-            h2 {
-                font-size: 1.4rem;
-            }
-
-            h3 {
-                font-size: 1.2rem;
-            }
-
-            p, ul li {
-                font-size: 0.9rem;
-            }
-
-            table {
-                font-size: 0.8rem;
-            }
+        footer span {
+            font-weight: bold;
+            color: #a18cd1;
         }
     </style>
 </head>
@@ -168,107 +108,29 @@
         <button onclick="window.location.href='index.html'">กลับไปหน้าหลัก</button>
     </div>
     <main>
-        <h1>สูตรพันธุศาสตร์</h1>
-        <p>หน้านี้รวบรวมสูตรและข้อมูลสำคัญเกี่ยวกับพันธุศาสตร์สำหรับการคำนวณความน่าจะเป็นและการวิเคราะห์ทางพันธุกรรม</p>
+        <h1>เกี่ยวกับเรา</h1>
+        <p>เว็บไซต์นี้ถูกสร้างขึ้นโดยทีมงานนักเรียนที่มีความตั้งใจและมุ่งมั่นในการพัฒนาเนื้อหาเพื่อสนับสนุนการเรียนรู้ด้านพันธุศาสตร์</p>
 
-        <h2>1. สูตรพื้นฐาน</h2>
-        <ul>
-            <li><strong>ความน่าจะเป็นของลักษณะเด่น/ด้อย:</strong> <code>P = จำนวนลักษณะที่ต้องการ / จำนวนลูกทั้งหมด</code></li>
-            <li><strong>การคำนวณพันธุกรรมแบบโมโนไฮบริด:</strong> ใช้การสร้างตารางพันธุกรรม (Punnett Square)</li>
-            <li><strong>สูตรโอกาสของยีนที่เกี่ยวข้อง:</strong> <code>P = (จำนวนลักษณะเด่น)^n * (จำนวนลักษณะด้อย)^m</code></li>
-        </ul>
-
-        <h2>2. ตัวอย่างการสร้างตารางพันธุกรรม</h2>
-        <h3>2.1 ตารางพันธุกรรมแบบโมโนไฮบริด</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>A (พ่อ)</th>
-                    <th>a (พ่อ)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>A (แม่)</th>
-                    <td>AA</td>
-                    <td>Aa</td>
-                </tr>
-                <tr>
-                    <th>a (แม่)</th>
-                    <td>Aa</td>
-                    <td>aa</td>
-                </tr>
-            </tbody>
-        </table>
-        <p>ผลลัพธ์:</p>
-        <ul>
-            <li>ความน่าจะเป็นลักษณะเด่น (AA, Aa): <code>3/4</code></li>
-            <li>ความน่าจะเป็นลักษณะด้อย (aa): <code>1/4</code></li>
-        </ul>
-
-        <h3>2.2 ตารางพันธุกรรมแบบไดไฮบริด</h3>
-        <p>ตัวอย่าง:</p>
-        <p>พ่อแม่: AaBb x AaBb</p>
-        <table>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>AB</th>
-                    <th>Ab</th>
-                    <th>aB</th>
-                    <th>ab</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>AB</th>
-                    <td>AABB</td>
-                    <td>AABb</td>
-                    <td>AaBB</td>
-                    <td>AaBb</td>
-                </tr>
-                <tr>
-                    <th>Ab</th>
-                    <td>AABb</td>
-                    <td>AAbb</td>
-                    <td>AaBb</td>
-                    <td>Aabb</td>
-                </tr>
-                <tr>
-                    <th>aB</th>
-                    <td>AaBB</td>
-                    <td>AaBb</td>
-                    <td>aaBB</td>
-                    <td>aaBb</td>
-                </tr>
-                <tr>
-                    <th>ab</th>
-                    <td>AaBb</td>
-                    <td>Aabb</td>
-                    <td>aaBb</td>
-                    <td>aabb</td>
-                </tr>
-            </tbody>
-        </table>
-        <p>ผลลัพธ์:</p>
-        <ul>
-            <li>ลักษณะเด่นทุกยีน (AABB): 1/16</li>
-            <li>ลักษณะเด่นบางส่วน: 14/16</li>
-            <li>ลักษณะด้อยทุกยีน (aabb): 1/16</li>
-        </ul>
-
-        <h2>3. ตัวอย่างโจทย์</h2>
-        <h3>โจทย์ที่ 1</h3>
-        <p>ถ้าพ่อแม่เป็น Aa และ Aa มีลูกทั้งหมด 4 คน ความน่าจะเป็นที่ลูกจะเป็นลักษณะด้อยทั้ง 4 คนคือเท่าไหร่?</p>
-        <p>คำตอบ: <code>(1/4)^4 = 1/256</code></p>
-
-        <h3>โจทย์ที่ 2</h3>
-        <p>ถ้าพ่อแม่เป็น AaBb x AaBb ความน่าจะเป็นที่ลูกจะมีลักษณะ Aabb คือเท่าไหร่?</p>
-        <p>คำตอบ: <code>(3/4)*(1/4) = 3/16</code></p>
+        <div class="team-list">
+            <div class="team-item">
+                ชื่อ-สกุล: ______________________ <br>
+                รหัสประจำตัวนักเรียน: ________ <br>
+                ชั้น: ม.5/1 เลขที่: _______
+            </div>
+            <div class="team-item">
+                ชื่อ-สกุล: ______________________ <br>
+                รหัสประจำตัวนักเรียน: ________ <br>
+                ชั้น: ม.5/1 เลขที่: _______
+            </div>
+            <div class="team-item">
+                ชื่อ-สกุล: ______________________ <br>
+                รหัสประจำตัวนักเรียน: ________ <br>
+                ชั้น: ม.5/1 เลขที่: _______
+            </div>
+        </div>
     </main>
     <footer>
-       Created by students from Khanuwittaya School
+        <p>Created by <span>Khanuwittaya School</span></p>
     </footer>
 </body>
 </html>
