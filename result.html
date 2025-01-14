@@ -1,118 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Genetics Calculator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ผลลัพธ์</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="header">
+        <button onclick="window.location.href='index.html'">กลับไปหน้าหลัก</button>
+    </div>
+    <main>
+        <h1>ผลลัพธ์ของคุณ</h1>
+        <div class="results">
+            <p id="result">กำลังโหลด...</p>
+        </div>
+    </main>
+    <footer>
+        <p>Created by students from Khanuwittaya School</p>
+    </footer>
+    <script>
+        // ดึงค่าจาก URL Parameters
+        const params = new URLSearchParams(window.location.search);
 
-<h1>Genetics Calculator</h1>
+        // Monohybrid alleles
+        const monoAlleles = [params.get('allele1'), params.get('allele2'), params.get('allele3'), params.get('allele4')];
+        const monoCombinations = [
+            monoAlleles[0] + monoAlleles[2],
+            monoAlleles[0] + monoAlleles[3],
+            monoAlleles[1] + monoAlleles[2],
+            monoAlleles[1] + monoAlleles[3],
+        ];
 
-<!-- Section: Monohybrid -->
-<div>
-  <h2>Monohybrid Calculator</h2>
-  <label for="mono-allele1">Parent 1 (e.g., A or a): </label>
-  <input type="text" id="mono-allele1" maxlength="1">
-  <label for="mono-allele2">Parent 2 (e.g., A or a): </label>
-  <input type="text" id="mono-allele2" maxlength="1">
-  <button onclick="calculateMonohybrid()">Calculate Monohybrid</button>
-  <div id="mono-result"></div>
-</div>
+        // Dihybrid alleles
+        const diAlleles = [params.get('allele5'), params.get('allele6'), params.get('allele7'), params.get('allele8')];
+        const diCombinations = monoCombinations.flatMap(mono =>
+            [diAlleles[0] + diAlleles[2], diAlleles[0] + diAlleles[3], diAlleles[1] + diAlleles[2], diAlleles[1] + diAlleles[3]]
+                .map(di => mono + di)
+        );
 
-<!-- Section: Dihybrid -->
-<div>
-  <h2>Dihybrid Calculator</h2>
-  <label for="di-allele1">Gene 1 Parent 1 (e.g., A or a): </label>
-  <input type="text" id="di-allele1" maxlength="1">
-  <label for="di-allele2">Gene 1 Parent 2 (e.g., A or a): </label>
-  <input type="text" id="di-allele2" maxlength="1">
-  <label for="di-allele3">Gene 2 Parent 1 (e.g., B or b): </label>
-  <input type="text" id="di-allele3" maxlength="1">
-  <label for="di-allele4">Gene 2 Parent 2 (e.g., B or b): </label>
-  <input type="text" id="di-allele4" maxlength="1">
-  <button onclick="calculateDihybrid()">Calculate Dihybrid</button>
-  <div id="di-result"></div>
-</div>
+        // ฟังก์ชันนับผลลัพธ์
+        const countResults = combinations =>
+            combinations.reduce((acc, genotype) => {
+                const sortedGenotype = genotype.split('').sort().join('');
+                acc[sortedGenotype] = (acc[sortedGenotype] || 0) + 1;
+                return acc;
+            }, {});
 
-<script>
-  // Monohybrid Calculator
-  function calculateMonohybrid() {
-    const allele1 = document.getElementById('mono-allele1').value.toUpperCase();
-    const allele2 = document.getElementById('mono-allele2').value.toUpperCase();
+        // คำนวณผลลัพธ์
+        const monoCounts = countResults(monoCombinations);
+        const diCounts = countResults(diCombinations);
 
-    if (!allele1 || !allele2) {
-      document.getElementById('mono-result').innerHTML = 'Please input valid alleles.';
-      return;
-    }
+        const totalMono = monoCombinations.length;
+        const totalDi = diCombinations.length;
 
-    const combinations = [
-      allele1 + allele1,
-      allele1 + allele2,
-      allele2 + allele1,
-      allele2 + allele2,
-    ].map(combo => combo.split('').sort().join(''));
+        // แปลงผลลัพธ์เป็นข้อความ
+        const formatResults = (counts, total) =>
+            Object.entries(counts)
+                .map(([genotype, count]) => `${genotype} ${(count / total) * 100}%`)
+                .join(', ');
 
-    const counts = combinations.reduce((acc, combo) => {
-      acc[combo] = (acc[combo] || 0) + 1;
-      return acc;
-    }, {});
+        const monoResultText = formatResults(monoCounts, totalMono);
+        const diResultText = formatResults(diCounts, totalDi);
 
-    const total = combinations.length;
-    const resultText = Object.entries(counts)
-      .map(([genotype, count]) => `${genotype}: ${(count / total * 100).toFixed(2)}%`)
-      .join('<br>');
-
-    document.getElementById('mono-result').innerHTML = `
-      <h3>Results</h3>
-      ${resultText}
-    `;
-  }
-
-  // Dihybrid Calculator
-  function calculateDihybrid() {
-    const allele1 = document.getElementById('di-allele1').value.toUpperCase();
-    const allele2 = document.getElementById('di-allele2').value.toUpperCase();
-    const allele3 = document.getElementById('di-allele3').value.toUpperCase();
-    const allele4 = document.getElementById('di-allele4').value.toUpperCase();
-
-    if (!allele1 || !allele2 || !allele3 || !allele4) {
-      document.getElementById('di-result').innerHTML = 'Please input valid alleles.';
-      return;
-    }
-
-    const gene1 = [allele1, allele2];
-    const gene2 = [allele3, allele4];
-
-    const combinations = [];
-    for (let i = 0; i < gene1.length; i++) {
-      for (let j = 0; j < gene1.length; j++) {
-        for (let k = 0; k < gene2.length; k++) {
-          for (let l = 0; l < gene2.length; l++) {
-            const genotype1 = [gene1[i], gene1[j]].sort().join('');
-            const genotype2 = [gene2[k], gene2[l]].sort().join('');
-            combinations.push(`${genotype1}${genotype2}`);
-          }
-        }
-      }
-    }
-
-    const counts = combinations.reduce((acc, genotype) => {
-      acc[genotype] = (acc[genotype] || 0) + 1;
-      return acc;
-    }, {});
-
-    const total = combinations.length;
-    const resultText = Object.entries(counts)
-      .map(([genotype, count]) => `${genotype}: ${(count / total * 100).toFixed(2)}%`)
-      .join('<br>');
-
-    document.getElementById('di-result').innerHTML = `
-      <h3>Results</h3>
-      ${resultText}
-    `;
-  }
-</script>
-
+        // แสดงผลลัพธ์
+        document.getElementById('result').innerText = `ผลลัพธ์โมโนไฮบริด: ${monoResultText}\nผลลัพธ์ไดไฮบริด: ${diResultText}`;
+    </script>
 </body>
 </html>
