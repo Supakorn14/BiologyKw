@@ -13,7 +13,8 @@
     <main>
         <h1>ผลลัพธ์ของคุณ</h1>
         <div class="results">
-            <p id="result">กำลังโหลด...</p>
+            <p id="mono-result">กำลังโหลดผลลัพธ์โมโนไฮบริด...</p>
+            <p id="di-result">กำลังโหลดผลลัพธ์ไดไฮบริด...</p>
         </div>
     </main>
     <footer>
@@ -22,34 +23,72 @@
     <script>
         // ดึงค่าจาก URL Parameters
         const params = new URLSearchParams(window.location.search);
-        const allele1 = params.get('allele1');
-        const allele2 = params.get('allele2');
-        const allele3 = params.get('allele3');
-        const allele4 = params.get('allele4');
+        const allele1 = params.get('allele1'); // Parent 1 Allele 1
+        const allele2 = params.get('allele2'); // Parent 1 Allele 2
+        const allele3 = params.get('allele3'); // Parent 2 Allele 1
+        const allele4 = params.get('allele4'); // Parent 2 Allele 2
 
-        // คำนวณ Punnett Square
-        const combinations = [
+        // ** โมโนไฮบริด (MonoHybrid) **
+        const monoCombos = [
             allele1 + allele3,
             allele1 + allele4,
             allele2 + allele3,
-            allele2 + allele4,
-        ];
+            allele2 + allele4
+        ].map(combo => combo.split('').sort().join('')); // จัดเรียงตัวอักษรในแต่ละชุด
 
-        // ฟังก์ชันนับผลลัพธ์
-        const counts = combinations.reduce((acc, genotype) => {
-            const sortedGenotype = genotype.split('').sort().join(''); // จัดเรียง A และ a
-            acc[sortedGenotype] = (acc[sortedGenotype] || 0) + 1;
+        // นับผลลัพธ์ของโมโนไฮบริด
+        const monoCounts = monoCombos.reduce((acc, genotype) => {
+            acc[genotype] = (acc[genotype] || 0) + 1;
             return acc;
         }, {});
 
-        // แปลงผลลัพธ์เป็นเปอร์เซ็นต์
-        const total = combinations.length;
-        const resultText = Object.entries(counts)
-            .map(([genotype, count]) => `${genotype} ${(count / total) * 100}%`)
-            .join(', ');
+        // แปลงผลลัพธ์เป็นเปอร์เซ็นต์ (โมโนไฮบริด)
+        const monoTotal = monoCombos.length;
+        const monoResultText = Object.entries(monoCounts)
+            .map(([genotype, count]) => `${genotype}: ${(count / monoTotal * 100).toFixed(2)}%`)
+            .join('<br>');
 
-        // แสดงผลลัพธ์
-        document.getElementById('result').innerText = `ผลลัพธ์: ${resultText}`;
+        // แสดงผลลัพธ์โมโนไฮบริด
+        document.getElementById('mono-result').innerHTML = `
+            <h2>ผลลัพธ์โมโนไฮบริด</h2>
+            ${monoResultText}
+        `;
+
+        // ** ไดไฮบริด (Dihybrid) **
+        const gene1 = [allele1, allele2];
+        const gene2 = [allele3, allele4];
+
+        // สร้างชุดค่าผสมของไดไฮบริด
+        const dihybridCombos = [];
+        for (let i = 0; i < gene1.length; i++) {
+            for (let j = 0; j < gene2.length; j++) {
+                for (let k = 0; k < gene1.length; k++) {
+                    for (let l = 0; l < gene2.length; l++) {
+                        const genotype1 = [gene1[i], gene1[k]].sort().join(''); // Gene 1
+                        const genotype2 = [gene2[j], gene2[l]].sort().join(''); // Gene 2
+                        dihybridCombos.push(`${genotype1}${genotype2}`);
+                    }
+                }
+            }
+        }
+
+        // นับผลลัพธ์ของไดไฮบริด
+        const dihybridCounts = dihybridCombos.reduce((acc, genotype) => {
+            acc[genotype] = (acc[genotype] || 0) + 1;
+            return acc;
+        }, {});
+
+        // แปลงผลลัพธ์เป็นเปอร์เซ็นต์ (ไดไฮบริด)
+        const dihybridTotal = dihybridCombos.length;
+        const dihybridResultText = Object.entries(dihybridCounts)
+            .map(([genotype, count]) => `${genotype}: ${(count / dihybridTotal * 100).toFixed(2)}%`)
+            .join('<br>');
+
+        // แสดงผลลัพธ์ไดไฮบริด
+        document.getElementById('di-result').innerHTML = `
+            <h2>ผลลัพธ์ไดไฮบริด</h2>
+            ${dihybridResultText}
+        `;
     </script>
 </body>
 </html>
