@@ -1,94 +1,118 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ผลลัพธ์</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Genetics Calculator</title>
 </head>
 <body>
-    <div class="header">
-        <button onclick="window.location.href='index.html'">กลับไปหน้าหลัก</button>
-    </div>
-    <main>
-        <h1>ผลลัพธ์ของคุณ</h1>
-        <div class="results">
-            <p id="mono-result">กำลังโหลดผลลัพธ์โมโนไฮบริด...</p>
-            <p id="di-result">กำลังโหลดผลลัพธ์ไดไฮบริด...</p>
-        </div>
-    </main>
-    <footer>
-        <p>Created by students from Khanuwittaya School</p>
-    </footer>
-    <script>
-        // ดึงค่าจาก URL Parameters
-        const params = new URLSearchParams(window.location.search);
-        const allele1 = params.get('allele1'); // Parent 1 Allele 1
-        const allele2 = params.get('allele2'); // Parent 1 Allele 2
-        const allele3 = params.get('allele3'); // Parent 2 Allele 1
-        const allele4 = params.get('allele4'); // Parent 2 Allele 2
 
-        // ** โมโนไฮบริด (MonoHybrid) **
-        const monoCombos = [
-            allele1 + allele3,
-            allele1 + allele4,
-            allele2 + allele3,
-            allele2 + allele4
-        ].map(combo => combo.split('').sort().join('')); // จัดเรียงตัวอักษรในแต่ละชุด
+<h1>Genetics Calculator</h1>
 
-        // นับผลลัพธ์ของโมโนไฮบริด
-        const monoCounts = monoCombos.reduce((acc, genotype) => {
-            acc[genotype] = (acc[genotype] || 0) + 1;
-            return acc;
-        }, {});
+<!-- Section: Monohybrid -->
+<div>
+  <h2>Monohybrid Calculator</h2>
+  <label for="mono-allele1">Parent 1 (e.g., A or a): </label>
+  <input type="text" id="mono-allele1" maxlength="1">
+  <label for="mono-allele2">Parent 2 (e.g., A or a): </label>
+  <input type="text" id="mono-allele2" maxlength="1">
+  <button onclick="calculateMonohybrid()">Calculate Monohybrid</button>
+  <div id="mono-result"></div>
+</div>
 
-        // แปลงผลลัพธ์เป็นเปอร์เซ็นต์ (โมโนไฮบริด)
-        const monoTotal = monoCombos.length;
-        const monoResultText = Object.entries(monoCounts)
-            .map(([genotype, count]) => `${genotype}: ${(count / monoTotal * 100).toFixed(2)}%`)
-            .join('<br>');
+<!-- Section: Dihybrid -->
+<div>
+  <h2>Dihybrid Calculator</h2>
+  <label for="di-allele1">Gene 1 Parent 1 (e.g., A or a): </label>
+  <input type="text" id="di-allele1" maxlength="1">
+  <label for="di-allele2">Gene 1 Parent 2 (e.g., A or a): </label>
+  <input type="text" id="di-allele2" maxlength="1">
+  <label for="di-allele3">Gene 2 Parent 1 (e.g., B or b): </label>
+  <input type="text" id="di-allele3" maxlength="1">
+  <label for="di-allele4">Gene 2 Parent 2 (e.g., B or b): </label>
+  <input type="text" id="di-allele4" maxlength="1">
+  <button onclick="calculateDihybrid()">Calculate Dihybrid</button>
+  <div id="di-result"></div>
+</div>
 
-        // แสดงผลลัพธ์โมโนไฮบริด
-        document.getElementById('mono-result').innerHTML = `
-            <h2>ผลลัพธ์โมโนไฮบริด</h2>
-            ${monoResultText}
-        `;
+<script>
+  // Monohybrid Calculator
+  function calculateMonohybrid() {
+    const allele1 = document.getElementById('mono-allele1').value.toUpperCase();
+    const allele2 = document.getElementById('mono-allele2').value.toUpperCase();
 
-        // ** ไดไฮบริด (Dihybrid) **
-        const gene1 = [allele1, allele2];
-        const gene2 = [allele3, allele4];
+    if (!allele1 || !allele2) {
+      document.getElementById('mono-result').innerHTML = 'Please input valid alleles.';
+      return;
+    }
 
-        // สร้างชุดค่าผสมของไดไฮบริด
-        const dihybridCombos = [];
-        for (let i = 0; i < gene1.length; i++) {
-            for (let j = 0; j < gene2.length; j++) {
-                for (let k = 0; k < gene1.length; k++) {
-                    for (let l = 0; l < gene2.length; l++) {
-                        const genotype1 = [gene1[i], gene1[k]].sort().join(''); // Gene 1
-                        const genotype2 = [gene2[j], gene2[l]].sort().join(''); // Gene 2
-                        dihybridCombos.push(`${genotype1}${genotype2}`);
-                    }
-                }
-            }
+    const combinations = [
+      allele1 + allele1,
+      allele1 + allele2,
+      allele2 + allele1,
+      allele2 + allele2,
+    ].map(combo => combo.split('').sort().join(''));
+
+    const counts = combinations.reduce((acc, combo) => {
+      acc[combo] = (acc[combo] || 0) + 1;
+      return acc;
+    }, {});
+
+    const total = combinations.length;
+    const resultText = Object.entries(counts)
+      .map(([genotype, count]) => `${genotype}: ${(count / total * 100).toFixed(2)}%`)
+      .join('<br>');
+
+    document.getElementById('mono-result').innerHTML = `
+      <h3>Results</h3>
+      ${resultText}
+    `;
+  }
+
+  // Dihybrid Calculator
+  function calculateDihybrid() {
+    const allele1 = document.getElementById('di-allele1').value.toUpperCase();
+    const allele2 = document.getElementById('di-allele2').value.toUpperCase();
+    const allele3 = document.getElementById('di-allele3').value.toUpperCase();
+    const allele4 = document.getElementById('di-allele4').value.toUpperCase();
+
+    if (!allele1 || !allele2 || !allele3 || !allele4) {
+      document.getElementById('di-result').innerHTML = 'Please input valid alleles.';
+      return;
+    }
+
+    const gene1 = [allele1, allele2];
+    const gene2 = [allele3, allele4];
+
+    const combinations = [];
+    for (let i = 0; i < gene1.length; i++) {
+      for (let j = 0; j < gene1.length; j++) {
+        for (let k = 0; k < gene2.length; k++) {
+          for (let l = 0; l < gene2.length; l++) {
+            const genotype1 = [gene1[i], gene1[j]].sort().join('');
+            const genotype2 = [gene2[k], gene2[l]].sort().join('');
+            combinations.push(`${genotype1}${genotype2}`);
+          }
         }
+      }
+    }
 
-        // นับผลลัพธ์ของไดไฮบริด
-        const dihybridCounts = dihybridCombos.reduce((acc, genotype) => {
-            acc[genotype] = (acc[genotype] || 0) + 1;
-            return acc;
-        }, {});
+    const counts = combinations.reduce((acc, genotype) => {
+      acc[genotype] = (acc[genotype] || 0) + 1;
+      return acc;
+    }, {});
 
-        // แปลงผลลัพธ์เป็นเปอร์เซ็นต์ (ไดไฮบริด)
-        const dihybridTotal = dihybridCombos.length;
-        const dihybridResultText = Object.entries(dihybridCounts)
-            .map(([genotype, count]) => `${genotype}: ${(count / dihybridTotal * 100).toFixed(2)}%`)
-            .join('<br>');
+    const total = combinations.length;
+    const resultText = Object.entries(counts)
+      .map(([genotype, count]) => `${genotype}: ${(count / total * 100).toFixed(2)}%`)
+      .join('<br>');
 
-        // แสดงผลลัพธ์ไดไฮบริด
-        document.getElementById('di-result').innerHTML = `
-            <h2>ผลลัพธ์ไดไฮบริด</h2>
-            ${dihybridResultText}
-        `;
-    </script>
+    document.getElementById('di-result').innerHTML = `
+      <h3>Results</h3>
+      ${resultText}
+    `;
+  }
+</script>
+
 </body>
 </html>
