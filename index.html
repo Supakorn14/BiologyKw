@@ -16,7 +16,8 @@
         <h1>Genetics Calculator</h1>
         <p>เลือกอัลลีลของพ่อและแม่ แล้วกด <strong>คำนวณ</strong> เพื่อดูผลลัพธ์เป็นเปอร์เซ็นต์</p>
         
-        <form id="calculator-form" action="result.html" method="GET">
+        <!-- Form for calculating -->
+        <form id="calculator-form" onsubmit="calculateResult(event)">
             <div class="form-group">
                 <label for="allele1">Parent 1 Allele 1:</label>
                 <select id="allele1" name="allele1">
@@ -47,11 +48,51 @@
             </div>
             <button type="submit" class="calculate-btn">คำนวณ</button>
         </form>
+
+        <!-- Area for showing results -->
+        <div id="result" style="display:none;">
+            <h3>ผลลัพธ์การคำนวณ:</h3>
+            <p id="result-text"></p>
+        </div>
     </main>
     <footer>
         <p>Created by students from Khanuwittaya School</p>
     </footer>
+
+    <script>
+        function calculateResult(event) {
+            event.preventDefault(); // Prevent the form from submitting
+
+            // Get allele values from the form
+            const allele1 = document.getElementById('allele1').value;
+            const allele2 = document.getElementById('allele2').value;
+            const allele3 = document.getElementById('allele3').value;
+            const allele4 = document.getElementById('allele4').value;
+
+            // Calculate genetic result (for simplicity, assume it's a monohybrid cross)
+            const results = calculateMonohybrid(allele1, allele2, allele3, allele4);
+
+            // Show result in the result area
+            const resultText = `ผลลัพธ์ที่คำนวณได้คือ: ${results}`;
+            document.getElementById('result-text').innerText = resultText;
+            document.getElementById('result').style.display = 'block'; // Show result div
+        }
+
+        // Simple monohybrid cross calculation function
+        function calculateMonohybrid(allele1, allele2, allele3, allele4) {
+            // Example calculation, can be modified for more complex logic
+            const parent1 = [allele1, allele2];
+            const parent2 = [allele3, allele4];
+
+            let result = "";
+            parent1.forEach(a1 => {
+                parent2.forEach(a2 => {
+                    result += a1 + a2 + ", ";
+                });
+            });
+
+            return result.slice(0, -2); // Remove last comma
+        }
+    </script>
 </body>
 </html>
-
-Old html
